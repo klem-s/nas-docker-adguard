@@ -15,7 +15,12 @@ services:
       - "53:53/udp"
       - "3002:3000/tcp"
     restart: unless-stopped
-
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.adguard-lan.rule=Host(`adguard.lan`)
+      - traefik.http.routers.adguard-lan.entrypoints=websecure
+      - traefik.http.routers.adguard-lan.tls=true
+      - traefik.http.services.adguard-lan.loadbalancer.server.port=3000
 networks:
   proxy:
     external: true
